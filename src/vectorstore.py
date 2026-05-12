@@ -1,22 +1,18 @@
-from langchain_core.documents import Document
-
-class MockRetriever:
-    def invoke(self, query: str):
-        # Return mock documents
-        return [
-            Document(page_content=f"Mock document 1 containing info about: {query}"),
-            Document(page_content=f"Mock document 2 with further details on: {query}")
-        ]
+import os
+from langchain_community.vectorstores import Chroma
+from langchain_huggingface import HuggingFaceEmbeddings
 
 def get_retriever():
     """
-    Initializes and returns the mock ChromaDB retriever.
-    Replace this with actual ChromaDB setup later.
+    Initializes and returns the ChromaDB retriever.
     """
-    return MockRetriever()
+    db_dir = os.getenv("CHROMA_DB_DIR", "./chroma_db")
+    embeddings = HuggingFaceEmbeddings(model_name="all-MiniLM-L6-v2")
+    db = Chroma(persist_directory=db_dir, embedding_function=embeddings)
+    return db.as_retriever(search_kwargs={"k": 3})
 
 def init_mock_db():
     """
-    Populates the database with some initial mock support data.
+    Deprecated. Use populate_db.py instead.
     """
-    print("Mock DB initialized (using in-memory MockRetriever for now).")
+    pass
