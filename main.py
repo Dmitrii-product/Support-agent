@@ -1,3 +1,9 @@
+import os
+from dotenv import load_dotenv
+
+# Load environment variables before any other imports that might depend on them
+load_dotenv()
+
 from src.graph import build_graph
 from langchain_core.messages import HumanMessage
 

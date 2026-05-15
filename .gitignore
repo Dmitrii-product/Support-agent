@@ -29,3 +29,10 @@ MANIFEST
 
 # Vector Store
 chroma_db/
+
+# Json golden dataset
+golden_dataset.json
+
+#DeepEval evauation results
+deepeval_results.json
+.deepeval_telemetry.txt

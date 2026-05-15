@@ -39,3 +39,37 @@ Handles the connection to ChromaDB. We use an embedding model to convert text do
    - If `responder` -> proceeds to Responder Node
 3. **Researcher Node** -> proceeds to Responder Node
 4. **Responder Node** -> END.
+
+## Vector Store Management (`update_db.py`)
+To incrementally update the ChromaDB vector store without duplicating existing documents, use the `update_db.py` script. It automatically scans the `chroma_db` directory for new `.txt` files and computes a SHA-256 hash of the document content to use as deterministic chunk IDs.
+- Usage: `python update_db.py`
+
+## Observability (LangSmith)
+The application utilizes **LangSmith** for native tracing and observability of the LangGraph workflow. To enable, the following environment variables must be set in `.env`:
+- `LANGCHAIN_TRACING_V2=true`
+- `LANGCHAIN_API_KEY=<your_key>`
+- `LANGCHAIN_PROJECT=<project_name>`
+
+## Evaluations (DeepEval + Pytest)
+To ensure the LLM outputs meet quality standards, we employ **DeepEval** alongside **Pytest**. 
+- Evaluation tests are located in `tests/evals/`.
+- We use a custom LLM wrapper (`CustomGroqLLM` in `tests/evals/custom_llm.py`) so DeepEval utilizes the configured Groq model (`llama-3.3-70b-versatile`) to score outputs natively.
+- Tests are parametrized against the **Golden Dataset** (`tests/evals/golden_dataset.json`). Each golden entry is run through the full agent pipeline and scored.
+- Key metrics measured:
+  - **Answer Relevancy** — Does the response directly address the user's question?
+  - **Faithfulness** — Is the response factually grounded in the retrieved context?
+  - **Contextual Relevancy** — Is the retrieved context relevant to the query?
+  - **Hallucination** — Does the response contain fabricated information not in the context?
+- Run evaluations via: `.venv/bin/pytest tests/evals/test_rag.py -v`
+- Note: Due to Groq free-tier rate limits (12K TPM), a 65-second pause is applied between test cases.
+
+### Golden Dataset Generation (`tests/evals/generate_goldens.py`)
+To create a synthetic "Golden Dataset" of Q&A pairs from your documentation, run:
+- Usage: `.venv/bin/python tests/evals/generate_goldens.py`
+- The script scans `chroma_db/` for `.txt` files and uses DeepEval's `Synthesizer` (powered by `llama-3.3-70b-versatile` via Groq) to generate question-answer pairs.
+- Per-file generation counts are configurable in the `custom_counts` dict inside the script. Current settings:
+  - `dct-version.txt`: 10 pairs
+  - `Mango_analytics.txt`: 20 pairs
+  - `email_tracking_setup_detailed.txt`: 5 pairs
+  - All other files: 2 pairs (default)
+- Output: `tests/evals/golden_dataset.json`

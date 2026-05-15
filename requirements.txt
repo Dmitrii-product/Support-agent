@@ -7,3 +7,6 @@ langgraph
 chromadb
 python-dotenv
 langchain-community
+langsmith
+deepeval
+pytest
