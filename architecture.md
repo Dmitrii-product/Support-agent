@@ -73,3 +73,13 @@ To create a synthetic "Golden Dataset" of Q&A pairs from your documentation, run
   - `email_tracking_setup_detailed.txt`: 5 pairs
   - All other files: 2 pairs (default)
 - Output: `tests/evals/golden_dataset.json`
+
+## 6. Web Interface & Lead Capture
+The project now includes a web interface and lead capture capabilities:
+- **Backend**: A FastAPI application (`api.py`) serves the static frontend and provides a `POST /chat` API endpoint. It maintains an in-memory session history for context continuity.
+- **Frontend**: A modern UI (`static/index.html`, `static/style.css`, `static/app.js`) featuring a responsive landing page and a floating chat widget. Navigation links point to several mock pages (`features.html`, `about.html`, `contact.html`).
+- **Lead Capture & Escalation**: 
+  - The `responder` node has been upgraded to support tool calling.
+  - A `leads.db` SQLite database (`src/database.py`) securely stores captured leads in the `leads` table and support tickets in the `tickets` table.
+  - When users show intent to buy, the agent explicitly asks for their details and consent before using the `save_lead_tool` to insert the data into the database.
+  - When the agent cannot resolve a customer's issue, it asks for their details and uses the `escalate_to_human_tool` to log a support ticket, providing the user with a tracking number (e.g., TKT-1) and promising human follow-up.

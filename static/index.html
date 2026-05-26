@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nexus Solutions | Smart Support Triage</title>
+    <meta name="description" content="Experience our AI-powered Smart Support Triage Agent that routes and resolves your queries instantly.">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="background-elements">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+    </div>
+
+    <header class="glass-nav">
+        <div class="logo">Nexus Solutions</div>
+        <nav>
+            <a href="/static/features.html">Features</a>
+            <a href="/static/about.html">About</a>
+            <a href="/static/contact.html">Contact</a>
+        </nav>
+    </header>
+
+    <main class="hero">
+        <div class="hero-content">
+            <h1>Next-Gen <span class="gradient-text">Customer Support</span></h1>
+            <p>Our intelligent LangGraph-powered triage agent understands your intent. Whether you need technical documentation, general assistance, or are ready to purchase our products, we've got you covered.</p>
+            <button class="primary-btn" id="open-chat-btn">Chat with our Agent</button>
+        </div>
+    </main>
+
+    <!-- Chat Widget -->
+    <div class="chat-widget hidden" id="chat-widget">
+        <div class="chat-header">
+            <div class="agent-info">
+                <div class="agent-avatar"></div>
+                <div>
+                    <h4>Support Agent</h4>
+                    <span class="status">Online</span>
+                </div>
+            </div>
+            <button class="close-chat" id="close-chat-btn">&times;</button>
+        </div>
+        
+        <div class="chat-messages" id="chat-messages">
+            <!-- Messages will be injected here -->
+            <div class="message ai">
+                <div class="message-content">
+                    Hello! I'm the Nexus Support Agent. How can I help you today?
+                </div>
+            </div>
+        </div>
+        
+        <div class="chat-input-area">
+            <input type="text" id="chat-input" placeholder="Type your message..." autocomplete="off">
+            <button id="send-btn">
+                <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="css-i6dzq1"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+            </button>
+        </div>
+        <div class="chat-disclosure">
+            By sending messages, you consent to our <a href="/static/privacy.html" target="_blank">Personal Data Handling Agreement</a>.
+        </div>
+    </div>
+
+    <script src="/static/app.js"></script>
+</body>
+</html>

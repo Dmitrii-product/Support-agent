@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Features | Nexus Solutions</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/style.css">
+    <style>
+        .content-container {
+            max-width: 800px;
+            margin: 8rem auto 4rem auto;
+            padding: 2rem;
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            line-height: 1.6;
+        }
+        .content-container h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+        }
+        .feature-item {
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--glass-border);
+        }
+        .feature-item:last-child {
+            border-bottom: none;
+        }
+        .feature-item h2 {
+            font-family: 'Outfit', sans-serif;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+        .feature-item p {
+            color: var(--text-muted);
+        }
+    </style>
+</head>
+<body>
+    <div class="background-elements">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+    </div>
+
+    <header class="glass-nav">
+        <div class="logo">Nexus Solutions</div>
+        <nav>
+            <a href="/">Home</a>
+            <a href="/static/about.html">About</a>
+            <a href="/static/contact.html">Contact</a>
+        </nav>
+    </header>
+
+    <main class="content-container">
+        <h1>Platform Features</h1>
+        
+        <div class="feature-item">
+            <h2>Multi-Agent Triage</h2>
+            <p>Our intelligent LangGraph-powered routing system instantly understands user intent, directing queries to the right specialized agent without human intervention.</p>
+        </div>
+        
+        <div class="feature-item">
+            <h2>RAG Knowledge Base</h2>
+            <p>Integrated with ChromaDB, the agent securely retrieves factual answers from your organization's documentation, ensuring high-quality and contextually relevant support.</p>
+        </div>
+        
+        <div class="feature-item">
+            <h2>Automated Lead Capture</h2>
+            <p>When a user shows intent to buy, our agents seamlessly pivot to sales mode, gathering contact details and safely storing leads into your database.</p>
+        </div>
+        
+        <div class="feature-item">
+            <h2>Human Escalation</h2>
+            <p>If an issue is too complex, the system automatically creates a support ticket and provides the user with a tracking number, queuing the issue for human review.</p>
+        </div>
+    </main>
+</body>
+</html>
