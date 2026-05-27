@@ -1,0 +1,56 @@
+Что такое сквозная аналитика?
+Сколько стоит?
+Дима тестовый
+test@test.com
+dialog_end
+
+Что такое emaitracking?
+Сколько стоит?
+Хочу купить
+Костя
+test2@test.com
+dialog_end
+
+Не работает личный кабинет
+Сергей
+test3@test.com
+Сколько ждать?
+dialog_end
+
+Я хочу купить у вас коллтрекинг
+Сколько стоит?
+дима
+test4@test.com
+dialog_end
+
+Я хочу отключить коллтрекинг
+Сергей
+test5@test.com
+dialog_end
+
+Как подключить Виджет?
+Сколько стоит?
+дима
+test6@test.com
+dialog_end
+
+Не могу зайти в личный кабинет
+Сергей
+test7@test.com
+dialog_end
+
+Не могу получить код в чат
+Максим
+test8@test.com
+dialog_end
+
+Не правльные данные в отчете Сквозная аналитика
+дима
+test9@test.com
+dialog_end
+
+Как повысить качество лидов?
+дима
+test10@test.com
+dialog_end
+

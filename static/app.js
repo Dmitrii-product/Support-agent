@@ -50,9 +50,9 @@ document.addEventListener('DOMContentLoaded', () => {
             });
 
             if (!response.ok) throw new Error('Network response was not ok');
-            
+
             const data = await response.json();
-            
+
             // Remove typing indicator and add AI response
             removeMessage(typingId);
             appendMessage(data.response, 'ai');
@@ -66,7 +66,7 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     sendBtn.addEventListener('click', sendMessage);
-    
+
     chatInput.addEventListener('keypress', (e) => {
         if (e.key === 'Enter') {
             sendMessage();
@@ -76,17 +76,17 @@ document.addEventListener('DOMContentLoaded', () => {
     function appendMessage(text, sender) {
         const msgDiv = document.createElement('div');
         msgDiv.className = `message ${sender}`;
-        
+
         const contentDiv = document.createElement('div');
         contentDiv.className = 'message-content';
-        
+
         // Simple markdown parsing for bold and line breaks
         let formattedText = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
         formattedText = formattedText.replace(/\n/g, '<br>');
-        
+
         contentDiv.innerHTML = formattedText;
         msgDiv.appendChild(contentDiv);
-        
+
         chatMessages.appendChild(msgDiv);
         scrollToBottom();
     }

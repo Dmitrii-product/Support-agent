@@ -83,3 +83,17 @@ The project now includes a web interface and lead capture capabilities:
   - A `leads.db` SQLite database (`src/database.py`) securely stores captured leads in the `leads` table and support tickets in the `tickets` table.
   - When users show intent to buy, the agent explicitly asks for their details and consent before using the `save_lead_tool` to insert the data into the database.
   - When the agent cannot resolve a customer's issue, it asks for their details and uses the `escalate_to_human_tool` to log a support ticket, providing the user with a tracking number (e.g., TKT-1) and promising human follow-up.
+
+## 7. Advanced Prompt Engineering & Constraints
+To ensure accuracy and compliance, strict prompt rules are enforced in `src/nodes/responder.py` and `src/nodes/triage.py`:
+- **No Hallucination**: The Responder node is explicitly forbidden from inventing answers about products if the information isn't in the RAG context. It gracefully degrades by suggesting ticket escalation.
+- **Strict Timing Rule**: The agent is restricted from asking for personal data (name, email, consent) during the very first conversational turn unless the user explicitly requests to speak to a human.
+- **Pricing Enforcement**: For price-related queries, the Triage node strictly bypasses RAG and sends the query directly to the Responder. The Responder is enforced to provide a specific pricing URL and clarify that prices depend on tariffs.
+- **Tool Guarantees**: Upon successfully executing an escalation or lead capture tool, the agent guarantees a "1 business day" SLA response to the user.
+
+## 8. Evaluation & A/B Testing Infrastructure
+To continuously monitor and improve the agent's performance, custom simulation and A/B testing scripts have been implemented:
+- **Automated Simulation (`tests/evals/play_dialogs.py`)**: A script that reads multi-turn test dialogues from `tests/evals/test_dialogs.txt` and automatically sends them via HTTP POST to the FastAPI backend, simulating real user interactions and capturing AI responses.
+- **Production Splitter (`api.py`)**: The FastAPI server implements a 50/50 traffic splitter. When a new session is generated, it randomly assigns the `triage_model` state to either `llama` or `qwen`.
+- **Dynamic Triage (`src/nodes/triage.py`)**: The Triage node dynamically instantiates either `llama-3.3-70b-versatile` or `qwen/qwen3-32b` depending on the session's assigned bucket.
+- **A/B Benchmark Script (`tests/evals/play_ab.py`)**: A dedicated testing script that iterates over `test_dialogs.txt`, forcefully overriding the production split to execute each dialog sequentially through both models. It generates a side-by-side comparison and calculates an "Agreement Rate" to evaluate routing parity between Llama and Qwen.

@@ -25,8 +25,15 @@ def triage_node(state: SupportState):
         elif not isinstance(msg, ToolMessage):
             safe_messages.append(msg)
     
+    triage_model_choice = state.get("triage_model", "qwen")
+    
+    if triage_model_choice == "llama":
+        model_name = "llama-3.3-70b-versatile"
+    else:
+        model_name = os.getenv("GROQ_MODEL", "qwen/qwen3-32b")
+        
     llm = ChatGroq(
-        model=os.getenv("GROQ_MODEL", "qwen-2.5-32b"),
+        model=model_name,
         temperature=0
     )
     
